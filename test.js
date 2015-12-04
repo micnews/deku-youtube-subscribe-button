@@ -13,7 +13,9 @@ test('simple youtube button', function (t) {
   ));
 
   t.equal(html, tsml`
-    <div class="g-ytsubscribe" data-channelid="myChannelId" data-layout="default" data-count="hidden" data-onytevent="youtubeSubscribeButtonEvent0"></div>
+    <div id="__deku-yt-subscribe-wrapper-0">
+      <div class="g-ytsubscribe" data-channelid="myChannelId" data-layout="default" data-count="hidden" data-onytevent="youtubeSubscribeButtonEvent0"></div>
+    </div>
   `);
 
   t.end();

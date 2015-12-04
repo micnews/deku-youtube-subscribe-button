@@ -5,7 +5,7 @@ import element from 'magic-virtual-element';
 let buttonIndex = 0;
 
 export function render ({ props }) {
-  var fn = 'youtubeSubscribeButtonEvent' + buttonIndex++;
+  const fn = 'youtubeSubscribeButtonEvent' + buttonIndex;
   global[fn] = function (payload) {
     if (payload.eventType === 'subscribe' && props.onSubscribe) {
       props.onSubscribe();
@@ -16,9 +16,17 @@ export function render ({ props }) {
     }
   };
 
+  const id = '__deku-yt-subscribe-wrapper-' + buttonIndex;
+  buttonIndex++;
   return (
-    <div class='g-ytsubscribe' data-channelid={props['channel-id'] || 'Youtube'} data-layout='default' data-count='hidden' data-onytevent={fn}></div>
+    <div id={id}>
+      <div class='g-ytsubscribe' data-channelid={props['channel-id'] || 'Youtube'} data-layout='default' data-count='hidden' data-onytevent={fn}></div>
+    </div>
   );
 }
 
-export default { render };
+export function afterMount (component, el) {
+  window.gapi.ytsubscribe.go(el.id);
+}
+
+export default { render, afterMount };

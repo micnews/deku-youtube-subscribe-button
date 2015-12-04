@@ -8,7 +8,7 @@ YouTube subscribe button for [deku](https://github.com/dekujs/deku). Docs https:
 npm install deku-youtube-subscribe-button
 ```
 
-Requires youtube script added to the page:
+Requires youtube script added to the page **and loaded before the deku-script**:
 
 ```html
 <script src="https://apis.google.com/js/platform.js"></script>
