@@ -26,7 +26,7 @@ export function render ({ props }) {
 }
 
 export function afterMount (component, el) {
-  if (!window.gapi) {
+  if (!window.gapi || !window.gapi.ytsubscribe) {
     console.error('deku-youtube-subscribe-button: Please add <script src="https://apis.google.com/js/platform.js"></script> to your html (before deku-youtube-subscribe-button is run)');
     return;
   }
