@@ -5,19 +5,29 @@ import element from 'magic-virtual-element';
 let buttonIndex = 0;
 
 export function render ({ props }) {
-  const fn = 'youtubeSubscribeButtonEvent' + buttonIndex;
-  global[fn] = function (payload) {
-    if (payload.eventType === 'subscribe' && props.onSubscribe) {
-      props.onSubscribe();
-    }
+  let fn = '';
+  let id = '';
 
-    if (payload.eventType === 'unsubscribe' && props.onUnsubscribe) {
-      props.onUnsubscribe();
-    }
-  };
+  function setupCallbacks () {
+    fn = 'youtubeSubscribeButtonEvent' + buttonIndex;
+    global[fn] = function (payload) {
+      if (payload.eventType === 'subscribe' && props.onSubscribe) {
+        props.onSubscribe();
+      }
 
-  const id = '__deku-yt-subscribe-wrapper-' + buttonIndex;
-  buttonIndex++;
+      if (payload.eventType === 'unsubscribe' && props.onUnsubscribe) {
+        props.onUnsubscribe();
+      }
+    };
+
+    id = '__deku-yt-subscribe-wrapper-' + buttonIndex;
+    buttonIndex++;
+  }
+
+  if (process.browser) {
+    setupCallbacks();
+  }
+
   return (
     <div id={id}>
       <div class='g-ytsubscribe' data-channelid={props['channel-id'] || 'Youtube'} data-layout='default' data-count='hidden' data-onytevent={fn}></div>
