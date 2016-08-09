@@ -5,12 +5,12 @@ import element from 'magic-virtual-element';
 let buttonIndex = 0;
 
 export function render ({ props }) {
-  let fn = '';
+  let fnName = '';
   let id = '';
 
   function setupCallbacks () {
-    fn = 'youtubeSubscribeButtonEvent' + buttonIndex;
-    global[fn] = function (payload) {
+    fnName = 'youtubeSubscribeButtonEvent' + buttonIndex;
+    global[fnName] = function (payload) {
       if (payload.eventType === 'subscribe' && props.onSubscribe) {
         props.onSubscribe();
       }
@@ -30,7 +30,7 @@ export function render ({ props }) {
 
   return (
     <div id={id}>
-      <div class='g-ytsubscribe' data-channelid={props['channel-id'] || 'Youtube'} data-layout='default' data-count='hidden' data-onytevent={fn}></div>
+      <div class='g-ytsubscribe' data-channelid={props['channel-id'] || 'Youtube'} data-layout='default' data-count='hidden' data-onytevent={fnName}></div>
     </div>
   );
 }
